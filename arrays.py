@@ -23,30 +23,31 @@ def sum_3_closest(arr, req_k):
 print(sum_3_closest([2, 5, 6, 1, 2], 7))
 
 
+# search_in_a_rotated_sorted_array
+def search(nums, target):
+    left, right = 0, len(nums) - 1
 
-def search_in_a_rotated_sorted_array():
-    arr = [4, 5, 6, 7, 1, 2, 3]
-    target = 6
-    left = 0
-    right = len(arr) - 1
-    while left < right:
+    while left <= right:
         mid = (left + right) // 2
-        if arr[mid] == target:
+
+        if nums[mid] == target:
             return True
-        elif arr[left] <= arr[mid]:
-            if target > arr[mid]:
+
+        # Check if left half is sorted
+        if nums[left] <= nums[mid]:
+            if nums[left] <= target < nums[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        # Otherwise, right half is sorted
+        else:
+            if nums[mid] < target <= nums[right]:
                 left = mid + 1
             else:
                 right = mid - 1
 
-        elif arr[mid] >= arr[right]:
-            if arr[left] > target:
-                left = mid
-            else:
-                right = mid + 1
     return False
-
-print(search_in_a_rotated_sorted_array())
+print(search([4, 5, 6, 7, 1, 2, 3], 3))
 
 
 def longestPalindrome(s):

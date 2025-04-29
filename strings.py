@@ -70,3 +70,50 @@ def zig_zag_convert(s, numRows):
 s = "PAYPALISHIRING"
 numRows = 3
 print(zig_zag_convert(s, numRows))
+
+
+def intToRoman(num: int) -> str:
+    int_to_roman = {
+        1000: 'M',
+        900: 'CM',
+        500: 'D',
+        400: 'CD',
+        100: 'C',
+        90: 'XC',
+        50: 'L',
+        40: 'XL',
+        10: 'X',
+        9: 'IX',
+        5: 'V',
+        4: 'IV',
+        1: 'I'
+    }
+
+    def get_roman_value(last_value, unit_place):
+        int_value = last_value * unit_place
+        roman_value = int_to_roman.get(int_value)
+        if roman_value:
+            return roman_value
+        else:
+            mutiple_times = last_value
+            if last_value in range(2, 5):
+                roman_value = int_to_roman.get(1 * unit_place) * mutiple_times
+            elif last_value in range(6, 9):
+                mutiple_times = mutiple_times - 5 if mutiple_times > 5 else 0
+                roman_value = int_to_roman.get(5 * unit_place) + int_to_roman.get(1 * unit_place) * mutiple_times
+            return roman_value
+
+    roman_value = ""
+    unit_place = 1
+    while num > 0:
+        last_value = num % 10
+        if last_value:
+            roman_value = get_roman_value(last_value, unit_place) + roman_value
+        unit_place *= 10
+        num = num // 10
+    return roman_value
+
+
+# print(intToRoman(3749))
+# OUTPUT:- "MMMDCCXLIX"
+

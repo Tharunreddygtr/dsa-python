@@ -30,7 +30,7 @@ nums2 = [2, 4, 6]
 k = 3
 print(kSmallestPairs(nums1, nums2, k))
 
-
+# min-heap solution (python by-default uses min-heap)
 def findKthLargest(nums, k):
     heap = nums[:k]
     heapq.heapify(heap)
@@ -44,3 +44,14 @@ def findKthLargest(nums, k):
 nums = [72, 2, 3, 4]
 k = 2
 print(findKthLargest(nums, k))
+
+
+import heapq
+# max heap solution
+def findKthLargest(nums, k):
+    nums = [-num for num in nums]   # Invert to simulate max-heap
+    heapq.heapify(nums)
+    for _ in range(k - 1):
+        heapq.heappop(nums)
+    return -heapq.heappop(nums)     # Invert again to get original value
+

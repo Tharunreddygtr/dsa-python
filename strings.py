@@ -22,6 +22,25 @@ def lengthOfLongestSubstring(s):
 s = "abcabcbb"
 print(lengthOfLongestSubstring(s))
 
+#optimized O(n)
+def length_of_longest_substring(s: str) -> int:
+    char_index = {}
+    start = max_len = 0
+
+    for end, char in enumerate(s):
+        if char in char_index and char_index[char] >= start:
+            start = char_index[char] + 1  # Move start to skip duplicate
+        char_index[char] = end
+        max_len = max(max_len, end - start + 1)
+
+    return max_len
+
+# Example
+print(length_of_longest_substring("abcabcbb"))  # Output: 3
+print(length_of_longest_substring("pwwkew"))    # Output: 3
+print(length_of_longest_substring(" "))         # Output: 1
+
+
 
 def characterReplacement(s, k):
     c_frequency = {}

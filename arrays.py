@@ -180,5 +180,25 @@ print(insert(intervals, newInterval))
 
 
 
+def find_peak_with_duplicates(arr, left, right):
+    while left < right:
+        mid = (left + right) // 2
+
+        if arr[mid] < arr[mid + 1]:
+            left = mid + 1
+        elif arr[mid] > arr[mid + 1]:
+            right = mid
+        else:
+            # Handle plateau by checking both sides recursively
+            left_peak = find_peak_with_duplicates(arr, left, mid)
+            right_peak = find_peak_with_duplicates(arr, mid + 1, right)
+            return max(left_peak, right_peak)
+
+    return arr[left]
+
+def find_peak_in_bitonic_array_with_duplicates(arr):
+    return find_peak_with_duplicates(arr, 0, len(arr) - 1)
+print(find_peak_in_bitonic_array_with_duplicates([7, 7, 7, 7, 7, 100, 7, 7, 7]))
+# Output: 100
 
 

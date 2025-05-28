@@ -236,3 +236,26 @@ def find_first_and_last_index(arr, target):
     return find_first(), find_last()
 
 print(find_first_and_last_index([1,1,1,3,4,5,6], 1))
+
+
+def single_non_duplicate(arr):
+    left, right = 0, len(arr) - 1
+
+    while left < right:
+        mid = (left + right) // 2
+
+        # Make mid even (to compare with its pair)
+        if mid % 2 == 1:
+            mid -= 1
+
+        if arr[mid] == arr[mid + 1]:
+            # The single element is after this pair
+            left = mid + 2
+        else:
+            # The single element is before or at mid
+            right = mid
+
+    return arr[left]
+arr = [1, 1, 2, 2, 3, 4, 4, 5, 5]
+print(single_non_duplicate(arr))  # Output: 3
+
